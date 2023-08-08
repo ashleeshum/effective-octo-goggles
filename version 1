@@ -1,0 +1,77 @@
+"""
+version 1
+author: Ashlee Shum
+description: layout only
+"""
+
+import tkinter as tk
+
+window = tk.Tk()
+window.title("Bento Bowl Ordering")
+window.geometry("700x700")
+window['bg'] = '#fcfcf3'
+
+#header
+frame_header = tk.Frame(window)
+label_header = tk.Label(
+    master = frame_header,
+    text="bento bowl ordering",
+    font=("Lucida, 15"),
+    bg = "red",
+    width = 70,
+    height = 2,
+    anchor="w",
+    justify="left"
+    )
+label_header.grid(row=0, column=0)
+frame_header.grid(row=0, column=0, sticky="nw")
+
+#introduction
+frame_intro = tk.Frame(window)
+label_intro = tk.Label(
+    master=frame_intro,
+    text="order your bento bowl here:",
+    font=("Lucinds,20"),
+    bg="blue",
+    width = 70,
+    height = 3,
+    anchor="w",
+    justify="left"
+    )
+label_intro.grid(row=1, column=0)
+frame_intro.grid(row=1, column=0, sticky="nw")
+
+#step 1: chosing mains
+
+v = tk.IntVar()
+v.set(1) #initialising choice
+
+def ShowChoice():
+    frame_mains_section = tk.Frame(window)
+    label_mains_section = tk.Label(
+        master=frame_mains_section,
+        bg="purple",
+        width=100,
+        height=10,
+    )
+    label_mains_section.grid(row=3, column=0)
+    frame_mains_section.grid(row=3, column=0, sticky="we")
+
+    #making button for mains step 1
+frame_mains = tk.Frame(window)
+
+main_button = tk.Radiobutton(
+    master = frame_mains,
+    text = "step 1: choose your mains",
+    variable = v,
+    command = ShowChoice,
+    indicatoron = 0,
+    font=("Lucinds, 20"),
+    anchor="w"
+    )
+main_button.grid(row=2, column=2)
+frame_mains.grid(row=2, column=2, sticky="we")
+
+
+
+window.mainloop()
