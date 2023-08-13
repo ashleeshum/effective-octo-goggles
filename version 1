@@ -5,6 +5,7 @@ description: layout only
 """
 
 import tkinter as tk
+from tkinter import *
 
 window = tk.Tk()
 window.title("Bento Bowl Ordering")
@@ -41,12 +42,97 @@ label_intro = tk.Label(
 label_intro.grid(row=1, column=0)
 frame_intro.grid(row=1, column=0, sticky="nw")
 
-#step 1: chosing mains
-
+#making main button frame
+frame_mains = tk.Frame(window)
+frame_mains.grid(row=2, column=0, sticky="we")
 v = tk.IntVar()
 v.set(1) #initialising choice
 
-def ShowChoice():
+#making vege button frame
+frame_vege = tk.Frame(window)
+frame_vege.grid(row=4, column=0, sticky="we")
+
+#making meats button frame
+frame_meats = tk.Frame(window)
+frame_meats.grid(row=6, column=0, sticky="we")
+
+#making sauces button frame
+frame_sauces = tk.Frame(window)
+frame_sauces.grid(row=8, column=0, sticky="we")
+
+#next button from step 3 wll open up step 4 collapsible section
+def step_4():
+    frame_sauces_section = tk.Frame(window)
+    label_sauces_section = tk.Label(
+        master=frame_sauces_section,
+        bg="purple",
+        width=100,
+        height=10,
+    )
+    label_sauces_section.grid(row=9, column=0)
+    frame_sauces_section.grid(row=9, column=0, sticky="we")
+
+    #next button
+    next_button_step4 = tk.Button(
+        master=frame_sauces_section,
+            text= "next",
+            bg="white",
+            width=10,
+            height=1,
+            font=("Lucinds, 10"),
+        )
+    next_button_step4.grid(row=9, column=0, sticky="se", pady=10, padx=10)
+
+#next button from step 2 wll open up step 3 collapsible section
+def step_3():
+    frame_meats_section = tk.Frame(window)
+    label_meats_section = tk.Label(
+        master=frame_meats_section,
+        bg="purple",
+        width=100,
+        height=10,
+    )
+    label_meats_section.grid(row=7, column=0)
+    frame_meats_section.grid(row=7, column=0, sticky="we")
+
+    #next button
+    next_button_step3 = tk.Button(
+        master=frame_meats_section,
+            text= "next",
+            bg="white",
+            width=10,
+            height=1,
+            font=("Lucinds, 10"),
+            #command=step_4
+        )
+    next_button_step3.grid(row=7, column=0, sticky="se", pady=10, padx=10)
+
+#next button from step 1 will open up step 2 collapsible section
+def step_2():
+    frame_vege_section = tk.Frame(window)
+    label_vege_section = tk.Label(
+        master=frame_vege_section,
+        bg="purple",
+        width=100,
+        height=10,
+    )
+    label_vege_section.grid(row=5, column=0)
+    frame_vege_section.grid(row=5, column=0, sticky="we")
+
+    #next button
+    next_button_step2 = tk.Button(
+        master=frame_vege_section,
+            text= "next",
+            bg="white",
+            width=10,
+            height=1,
+            font=("Lucinds, 10"),
+            command=step_3
+        )
+    next_button_step2.grid(row=5, column=0, sticky="se", pady=10, padx=10)
+
+#drop down section
+def step_1():
     frame_mains_section = tk.Frame(window)
     label_mains_section = tk.Label(
         master=frame_mains_section,
@@ -57,20 +143,82 @@ def ShowChoice():
     label_mains_section.grid(row=3, column=0)
     frame_mains_section.grid(row=3, column=0, sticky="we")
 
-    #making button for mains step 1
-frame_mains = tk.Frame(window)
+    #next button
+    next_button_step1 = tk.Button(
+        master=frame_mains_section,
+        text= "next",
+        bg="white",
+        width=10,
+        height=1,
+        font=("Lucinds, 10"),
+        command=step_2
+        )
+    next_button_step1.grid(row=3, column=0, sticky="se", pady=10, padx=10)
+
+
+#making button for mains step 1
+choose_main=["step 1: choose your mains here"]
 
 main_button = tk.Radiobutton(
     master = frame_mains,
-    text = "step 1: choose your mains",
+    text = choose_main,
     variable = v,
-    command = ShowChoice,
+    value= choose_main,
+    height = 2,
+    command = step_1,
     indicatoron = 0,
     font=("Lucinds, 20"),
     anchor="w"
     )
-main_button.grid(row=2, column=2)
-frame_mains.grid(row=2, column=2, sticky="we")
+main_button.grid(row=2, column=0)
+
+#making button for vege step 2
+choose_vege=["step 2: choose your vegetables here"]
+
+vege_button = tk.Radiobutton(
+    master=frame_vege,
+    text = choose_vege,
+    variable = v,
+    value = choose_vege,
+    height = 2,
+    command = step_2,
+    indicatoron = 0,
+    font=("Lucinds, 20"),
+    anchor="w"
+    )
+vege_button.grid(row=4, column=0)
+
+#making button for meats step 3
+choose_meats=["step 3: choose your meats here"]
+
+meats_button = tk.Radiobutton(
+    master=frame_meats,
+    text = choose_meats,
+    variable = v,
+    value = choose_meats,
+    height = 2,
+    command = step_3,
+    indicatoron = 0,
+    font=("Lucinds, 20"),
+    anchor="w"
+    )
+meats_button.grid(row=6, column=0)
+
+#making button for sauces step 4
+choose_sauces=["step 4: choose your sauces here"]
+
+sauces_button = tk.Radiobutton(
+    master=frame_sauces,
+    text = choose_sauces,
+    variable = v,
+    value = choose_sauces,
+    height = 2,
+    command = step_4,
+    indicatoron = 0,
+    font=("Lucinds, 20"),
+    anchor="w"
+    )
+sauces_button.grid(row=8, column=0)
 
 
 
