@@ -9,7 +9,9 @@ from tkinter import *
 
 window = tk.Tk()
 window.title("Bento Bowl Ordering")
-window.geometry("700x700")
+window.geometry("900x600")
+#makes it a fixed window size, doesn't have to be responsive 
+window.resizable(False, False)
 window['bg'] = '#fcfcf3'
 
 #header
@@ -24,8 +26,8 @@ label_header = tk.Label(
     anchor="w",
     justify="left"
     )
-label_header.grid(row=0, column=0)
-frame_header.grid(row=0, column=0, sticky="nw")
+label_header.grid(row=0, column=0, columnspan=4)
+frame_header.grid(row=0, column=0, columnspan=4, sticky="nw")
 
 #introduction
 frame_intro = tk.Frame(window)
@@ -39,26 +41,26 @@ label_intro = tk.Label(
     anchor="w",
     justify="left"
     )
-label_intro.grid(row=1, column=0)
-frame_intro.grid(row=1, column=0, sticky="nw")
+label_intro.grid(row=1, column=0, columnspan=4)
+frame_intro.grid(row=1, column=0, columnspan=4, sticky="nw")
 
 #making main button frame
 frame_mains = tk.Frame(window)
-frame_mains.grid(row=2, column=0, sticky="we")
+frame_mains.grid(row=2, column=0, columnspan=4, sticky="we")
 v = tk.IntVar()
 v.set(1) #initialising choice
 
 #making vege button frame
 frame_vege = tk.Frame(window)
-frame_vege.grid(row=4, column=0, sticky="we")
+frame_vege.grid(row=4, column=0, columnspan=4, sticky="we")
 
 #making meats button frame
 frame_meats = tk.Frame(window)
-frame_meats.grid(row=6, column=0, sticky="we")
+frame_meats.grid(row=6, column=0, columnspan=4, sticky="we")
 
 #making sauces button frame
 frame_sauces = tk.Frame(window)
-frame_sauces.grid(row=8, column=0, sticky="we")
+frame_sauces.grid(row=8, column=0, columnspan=4, sticky="we")
 
 #next button from step 3 wll open up step 4 collapsible section
 def step_4():
@@ -69,8 +71,8 @@ def step_4():
         width=100,
         height=10,
     )
-    label_sauces_section.grid(row=9, column=0)
-    frame_sauces_section.grid(row=9, column=0, sticky="we")
+    label_sauces_section.grid(row=9, column=0, columnspan=4)
+    frame_sauces_section.grid(row=9, column=0, columnspan=4, sticky="we")
 
     #next button
     next_button_step4 = tk.Button(
@@ -81,7 +83,7 @@ def step_4():
             height=1,
             font=("Lucinds, 10"),
         )
-    next_button_step4.grid(row=9, column=0, sticky="se", pady=10, padx=10)
+    next_button_step4.grid(row=9, column=0, columnspan=4, sticky="se", pady=10, padx=10)
 
 #next button from step 2 wll open up step 3 collapsible section
 def step_3():
@@ -92,8 +94,8 @@ def step_3():
         width=100,
         height=10,
     )
-    label_meats_section.grid(row=7, column=0)
-    frame_meats_section.grid(row=7, column=0, sticky="we")
+    label_meats_section.grid(row=7, column=0, columnspan=4)
+    frame_meats_section.grid(row=7, column=0, columnspan=4, sticky="we")
 
     #next button
     next_button_step3 = tk.Button(
@@ -105,7 +107,7 @@ def step_3():
             font=("Lucinds, 10"),
             #command=step_4
         )
-    next_button_step3.grid(row=7, column=0, sticky="se", pady=10, padx=10)
+    next_button_step3.grid(row=7, column=0, columnspan=4, sticky="se", pady=10, padx=10)
 
 #next button from step 1 will open up step 2 collapsible section
 def step_2():
@@ -116,8 +118,8 @@ def step_2():
         width=100,
         height=10,
     )
-    label_vege_section.grid(row=5, column=0)
-    frame_vege_section.grid(row=5, column=0, sticky="we")
+    label_vege_section.grid(row=5, column=0, columnspan=4)
+    frame_vege_section.grid(row=5, column=0, columnspan=4, sticky="we")
 
     #next button
     next_button_step2 = tk.Button(
@@ -129,7 +131,7 @@ def step_2():
             font=("Lucinds, 10"),
             command=step_3
         )
-    next_button_step2.grid(row=5, column=0, sticky="se", pady=10, padx=10)
+    next_button_step2.grid(row=5, column=0, columnspan=4, sticky="se", pady=10, padx=10)
 
 #drop down section
 def step_1():
@@ -140,8 +142,8 @@ def step_1():
         width=100,
         height=10,
     )
-    label_mains_section.grid(row=3, column=0)
-    frame_mains_section.grid(row=3, column=0, sticky="we")
+    label_mains_section.grid(row=3, column=0, columnspan=4)
+    frame_mains_section.grid(row=3, column=0, columnspan=4, sticky="we")
 
     #next button
     next_button_step1 = tk.Button(
@@ -153,7 +155,7 @@ def step_1():
         font=("Lucinds, 10"),
         command=step_2
         )
-    next_button_step1.grid(row=3, column=0, sticky="se", pady=10, padx=10)
+    next_button_step1.grid(row=3, column=0, columnspan=4, sticky="se", pady=10, padx=10)
 
 
 #making button for mains step 1
@@ -167,10 +169,10 @@ main_button = tk.Radiobutton(
     height = 2,
     command = step_1,
     indicatoron = 0,
-    font=("Lucinds, 20"),
+    font=("Lucinds, 15"),
     anchor="w"
     )
-main_button.grid(row=2, column=0)
+main_button.grid(row=2, column=0, columnspan=4)
 
 #making button for vege step 2
 choose_vege=["step 2: choose your vegetables here"]
@@ -183,10 +185,10 @@ vege_button = tk.Radiobutton(
     height = 2,
     command = step_2,
     indicatoron = 0,
-    font=("Lucinds, 20"),
+    font=("Lucinds, 15"),
     anchor="w"
     )
-vege_button.grid(row=4, column=0)
+vege_button.grid(row=4, column=0, columnspan=4)
 
 #making button for meats step 3
 choose_meats=["step 3: choose your meats here"]
@@ -199,10 +201,10 @@ meats_button = tk.Radiobutton(
     height = 2,
     command = step_3,
     indicatoron = 0,
-    font=("Lucinds, 20"),
+    font=("Lucinds, 15"),
     anchor="w"
     )
-meats_button.grid(row=6, column=0)
+meats_button.grid(row=6, column=0, columnspan=4)
 
 #making button for sauces step 4
 choose_sauces=["step 4: choose your sauces here"]
@@ -215,11 +217,54 @@ sauces_button = tk.Radiobutton(
     height = 2,
     command = step_4,
     indicatoron = 0,
-    font=("Lucinds, 20"),
+    font=("Lucinds, 15"),
     anchor="w"
     )
-sauces_button.grid(row=8, column=0)
+sauces_button.grid(row=8, column=0, columnspan=4)
 
+#creating text box for name 
+frame_enter_name = tk.Frame(window)
+frame_enter_name.grid(row=9, column=0, columnspan=2)
+enter_name = Text(
+    master=frame_enter_name,
+    height = 1,
+    width = 30)
+enter_name.grid(row=9, column=1)
 
+#creating label for name
+lbl_name = tk.Label(
+    master=frame_enter_name,
+    text="name:",
+    font=("Lucinds, 15"),
+    anchor="w",
+    justify = "left"
+    )
+lbl_name.grid(row=9, column=0, sticky="w", pady=20)
+
+frame_enter_phoneno=tk.Frame(window)
+frame_enter_phoneno.grid(row=9, column=2, columnspan=2)
+enter_phoneno = Text(
+    master=frame_enter_phoneno,
+    height = 1,
+    width = 30)
+enter_phoneno.grid(row=9, column=3)
+
+#creating text box for phone number
+lbl_phoneno = tk.Label(
+    master=frame_enter_phoneno,
+    text="phone number:",
+    font=("Lucinds, 15"),
+    anchor="w"
+    )
+lbl_phoneno.grid(row=9, column=2, sticky="w", pady=20)
+
+#creating order button
+order_button = tk.Button(
+    master=window,
+    text="order",
+    font=("Lucinds, 15"),
+    anchor="e"
+    )
+order_button.grid(row=10, column=3, sticky="e", pady=20)
 
 window.mainloop()
