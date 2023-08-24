@@ -1,54 +1,56 @@
 """
 version 3
 author: Ashlee Shum
-description: scrollbar 
+description: scrollbar
 """
 
 import tkinter as tk
 from tkinter import ttk
 
 class Layout:
-                
+               
     def __init__(self):
-        window = tk.Tk()
-        window.title("Bento Bowl Ordering")
-        window.geometry("900x600")
-        #makes it a fixed window size, doesn't have to be responsive 
-        window.resizable(False, False)
-        window['bg'] = '#fcfcf3'
+        root = tk.Tk()
+        root.title("Bento Bowl Ordering")
+        root.geometry("750x600")
+        #makes it a fixed window size, doesn't have to be responsive
+        root.resizable(False, False)
+        root['bg'] = '#fcfcf3'
 
-        main_frame = tk.Canvas(window, scrollregion=(0,0,1000,1000))
-        main_frame.grid()
+        frame=tk.Frame(root,width=750,height=300)
+        frame.pack(expand = True, fill=tk.BOTH)
 
-        scrollbar = ttk.Scrollbar(window, orient='vertical', command=main_frame.yview)
-        scrollbar.grid(row=0, column=1, sticky=tk.NS)
-        
+        canvas = tk.Canvas(frame,bg='pink', width = 750,height = 600,
+                      scrollregion=(0,0,500,1500))
 
-        main_frame.bind('<Configure>', lambda e: main_frame.config(scrollregion=main_frame.bbox('all')))
 
-        
-        scrollbar.config(command=main_frame.yview)
-        main_frame.config(yscrollcommand=scrollbar.set)
+        vbar = tk.Scrollbar(frame,orient = 'vertical')
+        vbar.pack(side = 'right', fill = 'y')
+        vbar.config(command = canvas.yview)
+
+        canvas.config(width=750,height=300)
+        canvas.config(yscrollcommand=vbar.set)
+        canvas.pack(side='left', expand = True, fill = 'both')
+
+        frame_header = tk.Frame(canvas)
+        canvas.create_window((0, 0), window=frame_header, anchor='nw')
 
         #making header
-        self.frame_header = tk.Frame(main_frame)
-        self.label_header = tk.Label(
-            master = self.frame_header,
-            text="bento bowl ordering",
-            font=("Lucida, 15"),
-            bg = "red",
-            width = 70,
-            height = 2,
-            anchor="w",
-            justify="left"
-            )
-        self.label_header.grid(row=0, column=0, columnspan=4)
-        self.frame_header.grid(row=0, column=0, columnspan=4, sticky="nw")
-    
+        label_header = tk.Label(
+                    master = frame_header,
+                    text="bento bowl ordering",
+                    font=("Lucida, 15"),
+                    bg = "red",
+                    width = 70,
+                    height = 2,
+                    anchor="w",
+                    justify="left"
+                    )
+        label_header.grid(row=0, column=0, columnspan=2, sticky='news')
+
         #introduction
-        frame_intro = tk.Frame(main_frame)
         label_intro = tk.Label(
-            master=frame_intro,
+            master=frame_header,
             text="order your bento bowl here:",
             font=("Lucinds,20"),
             bg="blue",
@@ -57,35 +59,25 @@ class Layout:
             anchor="w",
             justify="left"
             )
-        label_intro.grid(row=1, column=0, columnspan=4)
-        frame_intro.grid(row=1, column=0, columnspan=4, sticky="nw")
+        label_intro.grid(row=1, column=0, columnspan=2, sticky='news')
 
         #making main button frame
-        frame_mains = tk.Frame(main_frame)
-        frame_mains.grid(row=2, column=0, columnspan=4, sticky="we")
+
         v = tk.IntVar()
         v.set(1) #initialising choice
 
         #making vege button frame
-        frame_vege = tk.Frame(main_frame)
+        frame_vege = tk.Frame(canvas)
         frame_vege.grid(row=4, column=0, columnspan=4, sticky="we")
-
-        #making meats button frame
-        frame_meats = tk.Frame(main_frame)
-        frame_meats.grid(row=6, column=0, columnspan=4, sticky="we")
-
-        #making sauces button frame
-        frame_sauces = tk.Frame(main_frame)
-        frame_sauces.grid(row=8, column=0, columnspan=4, sticky="we")
 
         #next button from step 3 wll open up step 4 collapsible section
         def step_4():
-            frame_sauces_section = tk.Frame(main_frame)
+            frame_sauces_section = tk.Frame(frame_header)
             label_sauces_section = tk.Label(
                 master=frame_sauces_section,
                 bg="purple",
                 width=100,
-                height=10,
+                height=10
             )
             label_sauces_section.grid(row=9, column=0, columnspan=4)
             frame_sauces_section.grid(row=9, column=0, columnspan=4, sticky="we")
@@ -103,7 +95,7 @@ class Layout:
 
         #next button from step 2 wll open up step 3 collapsible section
         def step_3():
-            frame_meats_section = tk.Frame(main_frame)
+            frame_meats_section = tk.Frame(frame_header)
             label_meats_section = tk.Label(
                 master=frame_meats_section,
                 bg="purple",
@@ -127,7 +119,7 @@ class Layout:
 
         #next button from step 1 will open up step 2 collapsible section
         def step_2():
-            frame_vege_section = tk.Frame(main_frame)
+            frame_vege_section = tk.Frame(frame_header)
             label_vege_section = tk.Label(
                 master=frame_vege_section,
                 bg="purple",
@@ -151,7 +143,7 @@ class Layout:
 
         #drop down section 1
         def step_1():
-            frame_mains_section = tk.Frame(main_frame)
+            frame_mains_section = tk.Frame(frame_header)
             label_mains_section = tk.Label(
                 master=frame_mains_section,
                 bg="purple",
@@ -175,9 +167,8 @@ class Layout:
 
         #making button for mains step 1
         choose_main=["step 1: choose your mains here"]
-
         main_button = tk.Radiobutton(
-            master = frame_mains,
+            master = frame_header,
             text = choose_main,
             variable = v,
             value= choose_main,
@@ -187,13 +178,13 @@ class Layout:
             font=("Lucinds, 15"),
             anchor="w"
             )
-        main_button.grid(row=2, column=0, columnspan=4)
+        main_button.grid(row=2, column=0, columnspan=2, sticky='news')
 
         #making button for vege step 2
         choose_vege=["step 2: choose your vegetables here"]
 
         vege_button = tk.Radiobutton(
-            master=frame_vege,
+            master=frame_header,
             text = choose_vege,
             variable = v,
             value = choose_vege,
@@ -203,13 +194,13 @@ class Layout:
             font=("Lucinds, 15"),
             anchor="w"
             )
-        vege_button.grid(row=4, column=0, columnspan=4)
+        vege_button.grid(row=4, column=0, columnspan=2, sticky='news')
 
         #making button for meats step 3
         choose_meats=["step 3: choose your meats here"]
 
         meats_button = tk.Radiobutton(
-            master=frame_meats,
+            master=frame_header,
             text = choose_meats,
             variable = v,
             value = choose_meats,
@@ -219,13 +210,13 @@ class Layout:
             font=("Lucinds, 15"),
             anchor="w"
             )
-        meats_button.grid(row=6, column=0, columnspan=4)
+        meats_button.grid(row=6, column=0, columnspan=2, sticky='news')
 
         #making button for sauces step 4
         choose_sauces=["step 4: choose your sauces here"]
 
         sauces_button = tk.Radiobutton(
-            master=frame_sauces,
+            master=frame_header,
             text = choose_sauces,
             variable = v,
             value = choose_sauces,
@@ -235,16 +226,16 @@ class Layout:
             font=("Lucinds, 15"),
             anchor="w"
             )
-        sauces_button.grid(row=8, column=0, columnspan=4)
+        sauces_button.grid(row=8, column=0, columnspan=2, sticky='news')
 
-        #creating text box for name 
-        frame_enter_name = tk.Frame(main_frame)
-        frame_enter_name.grid(row=9, column=0, columnspan=2)
+        #creating text box for name
+        frame_enter_name = tk.Frame(frame_header)
+        frame_enter_name.grid(row=10, column=0, sticky="w")
         enter_name = tk.Text(
             master=frame_enter_name,
             height = 1,
             width = 30)
-        enter_name.grid(row=9, column=1)
+        enter_name.grid(row=10, column=0)
 
         #creating label for name
         lbl_name = tk.Label(
@@ -252,18 +243,18 @@ class Layout:
             text="name:",
             font=("Lucinds, 15"),
             anchor="w",
-            justify = "left"
+            justify = "left",
             )
-        lbl_name.grid(row=9, column=0, sticky="w", pady=20)
+        lbl_name.grid(row=10, column=0, sticky="w")
 
         #making text box for phone number
-        frame_enter_phoneno=tk.Frame(main_frame)
-        frame_enter_phoneno.grid(row=9, column=2, columnspan=2)
+        frame_enter_phoneno=tk.Frame(frame_header)
+        frame_enter_phoneno.grid(row=10, column=1, sticky="w")
         enter_phoneno = tk.Text(
             master=frame_enter_phoneno,
             height = 1,
             width = 30)
-        enter_phoneno.grid(row=9, column=3)
+        enter_phoneno.grid(row=10, column=1)
 
         #creating text box for phone number
         lbl_phoneno = tk.Label(
@@ -272,24 +263,18 @@ class Layout:
             font=("Lucinds, 15"),
             anchor="w"
             )
-        lbl_phoneno.grid(row=9, column=2, sticky="w", pady=20)
+        lbl_phoneno.grid(row=10, column=0, sticky="w", pady=20)
 
         #creating order button
         order_button = tk.Button(
-            master=window,
+            master=frame_header,
             text="order",
             font=("Lucinds, 15"),
             anchor="e"
             )
-        order_button.grid(row=10, column=3, sticky="e", pady=20)
+        order_button.grid(row=12, column=1, sticky="w", pady=20)
 
 
-        window.mainloop()
-    
-
-    
+        root.mainloop()
 
 Layout()
-
-
-
