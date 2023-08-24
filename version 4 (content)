@@ -149,23 +149,40 @@ class Layout:
             
             label_mains_section = tk.Label(
                 master=frame_mains_section,
-                bg="purple",
                 width=100,
                 height=10,
             )
-            
-            main_checkbutton = tk.Radiobutton(
+            label_mains_section.grid(row=0, column=0, columnspan=4)
+            main_rice = tk.Radiobutton(
                     master = label_mains_section,
                     text="rice",
                     variable = v,
-                    value= choose_main,
-                    font=("Lucinds, 15"),
+                    font=("Lucinds, 13"),
+                    padx = 80,
+                    pady = 20
                     )
-            label_mains_section.grid(row=3, column=0, columnspan=4)
-            main_checkbutton.grid(row=3, column=0)
+            main_rice.grid(row=0, column=0, sticky="w")
             
-            
+            main_noodles = tk.Radiobutton(
+                    master = label_mains_section,
+                    text="noodles",
+                    variable = v,
+                    font=("Lucinds, 13"),
+                    padx = 80,
+                    pady = 20
+                    )
+            main_noodles.grid(row=0, column=1, sticky="w")
 
+            main_brownrice = tk.Radiobutton(
+                    master = label_mains_section,
+                    text="brown rice",
+                    variable = v,
+                    font=("Lucinds, 13"),
+                    padx = 80,
+                    pady = 20
+                    )
+            main_brownrice.grid(row=0, column=3, sticky="w")
+            
             #next button
             next_button_step1 = tk.Button(
                 master=frame_mains_section,
@@ -176,7 +193,7 @@ class Layout:
                 font=("Lucinds, 10"),
                 command=step_2
                 )
-            next_button_step1.grid(row=3, column=0, columnspan=4, sticky="se", pady=10, padx=10)
+            next_button_step1.grid(row=1, column=3, columnspan=4, sticky="e", pady=10, padx=10)
 
         #making button for mains step 1
         choose_main=["step 1: choose your mains here"]
