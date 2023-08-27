@@ -73,12 +73,57 @@ class Layout:
             frame_sauces_section = tk.Frame(frame_header)
             label_sauces_section = tk.Label(
                 master=frame_sauces_section,
-                bg="purple",
                 width=100,
                 height=10
             )
             label_sauces_section.grid(row=9, column=0, columnspan=4)
             frame_sauces_section.grid(row=9, column=0, columnspan=4, sticky="we")
+
+            #making selecting options for sauces
+            self.sauces = tk.IntVar()
+            main_mayo = tk.Radiobutton(
+                    master = label_sauces_section,
+                    text="kewpie mayo",
+                    variable = self.sauces,
+                    value=1,
+                    font=("Lucinds, 13"),
+                    padx = 40,
+                    pady = 20
+                    )
+            main_mayo.grid(row=0, column=0, sticky="w")
+
+            main_teriyakisauce = tk.Radiobutton(
+                    master = label_sauces_section,
+                    text="teriyaki chicken sauce",
+                    variable = self.sauces,
+                    value=1,
+                    font=("Lucinds, 13"),
+                    padx = 40,
+                    pady = 20
+                    )
+            main_teriyakisauce.grid(row=0, column=1, sticky="w")
+
+            main_bbq = tk.Radiobutton(
+                    master = label_sauces_section,
+                    text="BBQ sauce",
+                    variable = self.sauces,
+                    value=1,
+                    font=("Lucinds, 13"),
+                    padx = 40,
+                    pady = 20
+                    )
+            main_bbq.grid(row=0, column=2, sticky="w")
+
+            main_siracha = tk.Radiobutton(
+                    master = label_sauces_section,
+                    text="siracha",
+                    variable = self.sauces,
+                    value=1,
+                    font=("Lucinds, 13"),
+                    padx = 40,
+                    pady = 20
+                    )
+            main_siracha.grid(row=1, column=0, sticky="w")
 
             #next button
             next_button_step4 = tk.Button(
@@ -96,16 +141,83 @@ class Layout:
             frame_meats_section = tk.Frame(frame_header)
             label_meats_section = tk.Label(
                 master=frame_meats_section,
-                bg="purple",
                 width=100,
                 height=10,
             )
-            label_meats_section.grid(row=7, column=0, columnspan=4)
+            label_meats_section.grid(row=0, column=0, columnspan=4)
             frame_meats_section.grid(row=7, column=0, columnspan=4, sticky="we")
+
+            #making content (select options)
+            self.meats = tk.IntVar()
+            main_karage = tk.Radiobutton(
+                    master = label_meats_section,
+                    text="chicken karage",
+                    variable = self.meats,
+                    value=1,
+                    font=("Lucinds, 13"),
+                    padx = 40,
+                    pady = 20
+                    )
+            main_karage.grid(row=0, column=0, sticky="w")
+            
+            main_karagespicy = tk.Radiobutton(
+                    master = label_meats_section,
+                    text="chicken karage (spicy)",
+                    variable = self.meats,
+                    value=2,
+                    font=("Lucinds, 13"),
+                    padx = 40,
+                    pady = 20
+                    )
+            main_karagespicy.grid(row=0, column=1, sticky="w")
+
+            main_katsu = tk.Radiobutton(
+                    master = label_meats_section,
+                    text="chicken katsu",
+                    variable = self.meats,
+                    value=3,
+                    font=("Lucinds, 13"),
+                    padx = 40,
+                    pady = 20
+                    )
+            main_katsu.grid(row=0, column=2, sticky="w")
+
+            main_tempura = tk.Radiobutton(
+                    master = label_meats_section,
+                    text="tempura",
+                    variable = self.meats,
+                    value=4,
+                    font=("Lucinds, 13"),
+                    padx = 40,
+                    pady = 20
+                    )
+            main_tempura.grid(row=1, column=0, sticky="w")
+
+            main_salmon = tk.Radiobutton(
+                    master = label_meats_section,
+                    text="salmon",
+                    variable = self.meats,
+                    value=5,
+                    font=("Lucinds, 13"),
+                    padx = 40,
+                    pady = 20
+                    )
+            main_salmon.grid(row=1, column=1, sticky="w")
+
+            main_teriyakichk = tk.Radiobutton(
+                    master = label_meats_section,
+                    text="teriyaki chicken",
+                    variable = self.meats,
+                    value=6,
+                    font=("Lucinds, 13"),
+                    padx = 40,
+                    pady = 20
+                    )
+            main_teriyakichk.grid(row=1, column=2, sticky="w")
 
             #next button
             next_button_step3 = tk.Button(
-                master=frame_meats_section,
+                    master=frame_meats_section,
                     text= "next",
                     bg="white",
                     width=10,
@@ -113,23 +225,68 @@ class Layout:
                     font=("Lucinds, 10"),
                     command=step_4
                 )
-            next_button_step3.grid(row=7, column=0, columnspan=4, sticky="se", pady=10, padx=10)
+            next_button_step3.grid(row=1, column=3, columnspan=4, sticky="se", pady=10, padx=10)
 
         #next button from step 1 will open up step 2 collapsible section
         def step_2():
             frame_vege_section = tk.Frame(frame_header)
+
             label_vege_section = tk.Label(
                 master=frame_vege_section,
-                bg="purple",
                 width=100,
                 height=10,
             )
-            label_vege_section.grid(row=5, column=0, columnspan=4)
+            label_vege_section.grid(row=0, column=0, columnspan=4)
             frame_vege_section.grid(row=5, column=0, columnspan=4, sticky="we")
+
+            self.vege = tk.IntVar()
+            main_stirfry = tk.Radiobutton(
+                    master = label_vege_section,
+                    text="stir fry vegetables",
+                    variable = self.vege,
+                    value=1,
+                    font=("Lucinds, 13"),
+                    padx = 25,
+                    pady = 20
+                    )
+            main_stirfry.grid(row=0, column=0, sticky="w")
+            
+            main_salad = tk.Radiobutton(
+                    master = label_vege_section,
+                    text="salad (spinach, carates, lettuce)",
+                    variable = self.vege,
+                    value=2,
+                    font=("Lucinds, 13"),
+                    padx = 25,
+                    pady = 20
+                    )
+            main_salad.grid(row=0, column=1, sticky="w")
+
+            main_edamame = tk.Radiobutton(
+                    master = label_vege_section,
+                    text="edamame beans",
+                    variable = self.vege,
+                    value=3,
+                    font=("Lucinds, 13"),
+                    padx = 25,
+                    pady = 20
+                    )
+            main_edamame.grid(row=0, column=3, sticky="w")
+
+            main_beetroot = tk.Radiobutton(
+                    master = label_vege_section,
+                    text="beetroot",
+                    variable = self.vege,
+                    value=4,
+                    font=("Lucinds, 13"),
+                    padx = 25,
+                    pady = 20,
+                    )
+            main_beetroot.grid(row=1, column=0, sticky="w")
 
             #next button
             next_button_step2 = tk.Button(
-                master=frame_vege_section,
+                    master=frame_vege_section,
                     text= "next",
                     bg="white",
                     width=10,
@@ -137,7 +294,7 @@ class Layout:
                     font=("Lucinds, 10"),
                     command=step_3
                 )
-            next_button_step2.grid(row=5, column=0, columnspan=4, sticky="se", pady=10, padx=10)
+            next_button_step2.grid(row=1, column=3, columnspan=4, sticky="e", pady=10, padx=10)
 
         #drop down section 1
         def step_1():
@@ -150,14 +307,14 @@ class Layout:
                 height=10,
             )
             label_mains_section.grid(row=0, column=0, columnspan=4)
-            #creating function for when radiobutton gets selected
 
-            self.radio = tk.IntVar()
-            
+            #creating function for when radiobutton gets selected
+               
+            self.main = tk.IntVar()
             main_rice = tk.Radiobutton(
                     master = label_mains_section,
                     text="rice",
-                    variable = self.radio,
+                    variable = self.main,
                     value=1,
                     font=("Lucinds, 13"),
                     padx = 80,
@@ -168,7 +325,7 @@ class Layout:
             main_noodles = tk.Radiobutton(
                     master = label_mains_section,
                     text="noodles",
-                    variable = self.radio,
+                    variable = self.main,
                     value=2,
                     font=("Lucinds, 13"),
                     padx = 80,
@@ -179,7 +336,7 @@ class Layout:
             main_brownrice = tk.Radiobutton(
                     master = label_mains_section,
                     text="brown rice",
-                    variable = self.radio,
+                    variable = self.main,
                     value=3,
                     font=("Lucinds, 13"),
                     padx = 80,
