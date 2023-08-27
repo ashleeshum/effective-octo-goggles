@@ -64,9 +64,6 @@ class Layout:
 
         #making main button frame
 
-        v = tk.IntVar()
-        v.set(1) #initialising choice
-
         #making vege button frame
         frame_vege = tk.Frame(canvas)
         frame_vege.grid(row=4, column=0, columnspan=4, sticky="we")
@@ -153,10 +150,15 @@ class Layout:
                 height=10,
             )
             label_mains_section.grid(row=0, column=0, columnspan=4)
+            #creating function for when radiobutton gets selected
+
+            self.radio = tk.IntVar()
+            
             main_rice = tk.Radiobutton(
                     master = label_mains_section,
                     text="rice",
-                    variable = v,
+                    variable = self.radio,
+                    value=1,
                     font=("Lucinds, 13"),
                     padx = 80,
                     pady = 20
@@ -166,7 +168,8 @@ class Layout:
             main_noodles = tk.Radiobutton(
                     master = label_mains_section,
                     text="noodles",
-                    variable = v,
+                    variable = self.radio,
+                    value=2,
                     font=("Lucinds, 13"),
                     padx = 80,
                     pady = 20
@@ -176,7 +179,8 @@ class Layout:
             main_brownrice = tk.Radiobutton(
                     master = label_mains_section,
                     text="brown rice",
-                    variable = v,
+                    variable = self.radio,
+                    value=3,
                     font=("Lucinds, 13"),
                     padx = 80,
                     pady = 20
@@ -195,13 +199,15 @@ class Layout:
                 )
             next_button_step1.grid(row=1, column=3, columnspan=4, sticky="e", pady=10, padx=10)
 
+        self.v = tk.IntVar()
+        
         #making button for mains step 1
         choose_main=["step 1: choose your mains here"]
         main_button = tk.Radiobutton(
             master = frame_header,
             text = choose_main,
-            variable = v,
-            value= choose_main,
+            variable = self.v,
+            value= 1,
             height = 2,
             command = step_1,
             indicatoron = 0,
@@ -216,8 +222,8 @@ class Layout:
         vege_button = tk.Radiobutton(
             master=frame_header,
             text = choose_vege,
-            variable = v,
-            value = choose_vege,
+            variable = self.v,
+            value = 2,
             height = 2,
             command = step_2,
             indicatoron = 0,
@@ -232,8 +238,8 @@ class Layout:
         meats_button = tk.Radiobutton(
             master=frame_header,
             text = choose_meats,
-            variable = v,
-            value = choose_meats,
+            variable = self.v,
+            value = 3,
             height = 2,
             command = step_3,
             indicatoron = 0,
@@ -248,8 +254,8 @@ class Layout:
         sauces_button = tk.Radiobutton(
             master=frame_header,
             text = choose_sauces,
-            variable = v,
-            value = choose_sauces,
+            variable = self.v,
+            value = 4,
             height = 2,
             command = step_4,
             indicatoron = 0,
