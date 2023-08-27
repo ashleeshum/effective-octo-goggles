@@ -62,11 +62,8 @@ class Layout:
             )
         label_intro.grid(row=1, column=0, columnspan=2, sticky='news')
 
-        #making main button frame
-
-        #making vege button frame
-        frame_vege = tk.Frame(canvas)
-        frame_vege.grid(row=4, column=0, columnspan=4, sticky="we")
+        def remove_mains(frame_mains_section):
+            frame_mains_section.grid_remove()
 
         #next button from step 3 wll open up step 4 collapsible section
         def step_4():
@@ -96,7 +93,7 @@ class Layout:
                     master = label_sauces_section,
                     text="teriyaki chicken sauce",
                     variable = self.sauces,
-                    value=1,
+                    value=2,
                     font=("Lucinds, 13"),
                     padx = 40,
                     pady = 20
@@ -107,7 +104,7 @@ class Layout:
                     master = label_sauces_section,
                     text="BBQ sauce",
                     variable = self.sauces,
-                    value=1,
+                    value=3,
                     font=("Lucinds, 13"),
                     padx = 40,
                     pady = 20
@@ -118,7 +115,7 @@ class Layout:
                     master = label_sauces_section,
                     text="siracha",
                     variable = self.sauces,
-                    value=1,
+                    value=4,
                     font=("Lucinds, 13"),
                     padx = 40,
                     pady = 20
@@ -352,7 +349,7 @@ class Layout:
                 width=10,
                 height=1,
                 font=("Lucinds, 10"),
-                command=step_2
+                command=lambda:[step_2, remove_mains, #open_nextsection]
                 )
             next_button_step1.grid(row=1, column=3, columnspan=4, sticky="e", pady=10, padx=10)
 
@@ -465,7 +462,7 @@ class Layout:
             font=("Lucinds, 15"),
             anchor="e"
             )
-        order_button.grid(row=12, column=1, sticky="w", pady=20)
+        order_button.grid(row=12, column=1, sticky="e", pady=10, padx=90)
 
 
         root.mainloop()
