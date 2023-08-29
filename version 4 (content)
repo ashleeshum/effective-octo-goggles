@@ -62,9 +62,23 @@ class Layout:
             )
         label_intro.grid(row=1, column=0, columnspan=2, sticky='news')
 
-        def remove_mains(frame_mains_section):
-            frame_mains_section.grid_remove()
+        # creating a function for removing widgets from grid
+        def transition1(frm_main):
+            frm_main.grid_remove()
+            step_2()
 
+        def transition2(frm_vege):
+            frm_vege.grid_remove()
+            step_3()
+
+        def transition3(frm_meats):
+            frm_meats.grid_remove()
+            step_4()
+
+        def transition4(frm_sauces):
+            frm_sauces.grid_remove()
+
+        
         #next button from step 3 wll open up step 4 collapsible section
         def step_4():
             frame_sauces_section = tk.Frame(frame_header)
@@ -125,11 +139,12 @@ class Layout:
             #next button
             next_button_step4 = tk.Button(
                 master=frame_sauces_section,
-                    text= "next",
+                    text= "finish",
                     bg="white",
                     width=10,
                     height=1,
                     font=("Lucinds, 10"),
+                    command = lambda : transition4(frame_sauces_section)
                 )
             next_button_step4.grid(row=9, column=0, columnspan=4, sticky="se", pady=10, padx=10)
 
@@ -220,7 +235,7 @@ class Layout:
                     width=10,
                     height=1,
                     font=("Lucinds, 10"),
-                    command=step_4
+                    command = lambda : transition3(frame_meats_section)
                 )
             next_button_step3.grid(row=1, column=3, columnspan=4, sticky="se", pady=10, padx=10)
 
@@ -289,7 +304,7 @@ class Layout:
                     width=10,
                     height=1,
                     font=("Lucinds, 10"),
-                    command=step_3
+                    command = lambda : transition2(frame_vege_section)
                 )
             next_button_step2.grid(row=1, column=3, columnspan=4, sticky="e", pady=10, padx=10)
 
@@ -349,7 +364,7 @@ class Layout:
                 width=10,
                 height=1,
                 font=("Lucinds, 10"),
-                command=lambda:[step_2, remove_mains, #open_nextsection]
+                command=lambda : transition1(frame_mains_section)
                 )
             next_button_step1.grid(row=1, column=3, columnspan=4, sticky="e", pady=10, padx=10)
 
@@ -463,6 +478,7 @@ class Layout:
             anchor="e"
             )
         order_button.grid(row=12, column=1, sticky="e", pady=10, padx=90)
+
 
 
         root.mainloop()
