@@ -8,9 +8,23 @@ description: retrieving information
 import tkinter as tk
 from tkinter import ttk
 
+class BentoBowl:
+    def __init__(self):
+        self.mainslist = ["rice","brown rice", "noodles"]
+        self.vegeslist = ["stirfry", "salad", "beetroot", "edamame beans"]
+        self.meatslist = ["chicken karage", "chicken karage (spicy)", "chicken katsu"]
+        self.meatslist2 = ["tempura", "salmon", "teriyaki chicken"]
+        self.sauceslist = ["teriyaki chicken sauce", "bbq sauce", "kewpie mayo"]
+
+    def return_lists(self):
+        #passing self through so that the lists above can be accessed and thus returned
+        #returning all the lists with ingredients so that they can be passed through to another class and used.
+        return [self.mainslist, self.vegeslist, self.meatslist, self.meatslist2, self.sauceslist]
+
+
 class Layout:
                
-    def __init__(self):
+    def __init__(self, ingredients):
         root = tk.Tk()
         root.title("Bento Bowl Ordering")
         root.geometry("750x600")
@@ -61,6 +75,7 @@ class Layout:
             justify="left"
             )
         label_intro.grid(row=1, column=0, columnspan=2, sticky='news')
+            
 
         # creating functions for collapsing sections
         def transition1(frm_main):
@@ -92,67 +107,51 @@ class Layout:
             label_sauces_section.grid(row=9, column=0, columnspan=4)
             frame_sauces_section.grid(row=9, column=0, columnspan=4, sticky="we")
 
+
+            self.saucesvar = tk.StringVar()
             #making selecting options for sauces
-            self.sauces = tk.IntVar()
-            main_mayo = tk.Radiobutton(
+            column = 0
+            for text in ingredients[4]:
+                self.sauce = tk.Radiobutton(
                     master = label_sauces_section,
-                    text="kewpie mayo",
+                    text=text,
                     bg="#eee9e1",
-                    variable = self.sauces,
-                    value=1,
+                    variable = self.saucesvar,
+                    value=text,
                     font=("Lucinds, 13"),
                     padx = 40,
                     pady = 20
-                    )
-            main_mayo.grid(row=0, column=0, sticky="w")
+                )
+                self.sauce.grid(row=0, column=column, sticky="w")
+                column += 1
+            self.saucesvar.set(0)
 
-            main_teriyakisauce = tk.Radiobutton(
-                    master = label_sauces_section,
-                    text="teriyaki chicken sauce",
-                    bg="#eee9e1",
-                    variable = self.sauces,
-                    value=2,
-                    font=("Lucinds, 13"),
-                    padx = 40,
-                    pady = 20
-                    )
-            main_teriyakisauce.grid(row=0, column=1, sticky="w")
+            #making button for siracha
+            self.sauce = tk.Radiobutton(
+                master = label_sauces_section,
+                text="siracha",
+                bg="#eee9e1",
+                variable = self.saucesvar,
+                value="siracha",
+                font=("Lucinds, 13"),
+                padx = 40,
+                pady = 20
+            )
+            self.sauce.grid(row=1, column=0, sticky="w")
+                
 
-            main_bbq = tk.Radiobutton(
-                    master = label_sauces_section,
-                    text="BBQ sauce",
-                    bg="#eee9e1",
-                    variable = self.sauces,
-                    value=3,
-                    font=("Lucinds, 13"),
-                    padx = 40,
-                    pady = 20
-                    )
-            main_bbq.grid(row=0, column=2, sticky="w")
-
-            main_siracha = tk.Radiobutton(
-                    master = label_sauces_section,
-                    text="siracha",
-                    bg="#eee9e1",
-                    variable = self.sauces,
-                    value=4,
-                    font=("Lucinds, 13"),
-                    padx = 40,
-                    pady = 20
-                    )
-            main_siracha.grid(row=1, column=0, sticky="w")
-
-            #next button
             next_button_step4 = tk.Button(
                 master=frame_sauces_section,
-                    text= "finish",
-                    bg="white",
-                    width=10,
-                    height=1,
-                    font=("Lucinds, 10"),
-                    command = lambda : transition4(frame_sauces_section)
-                )
+                text= "finish",
+                bg="white",
+                width=10,
+                height=1,
+                font=("Lucinds, 10"),
+                command = lambda : transition4(frame_sauces_section)
+            )
             next_button_step4.grid(row=9, column=0, columnspan=4, sticky="se", pady=10, padx=10)
+
+            
 
         #next button from step 2 wll open up step 3 collapsible section
         def step_3():
@@ -166,80 +165,45 @@ class Layout:
             label_meats_section.grid(row=0, column=0, columnspan=4)
             frame_meats_section.grid(row=7, column=0, columnspan=4, sticky="we")
 
-            #making content (select options)
-            self.meats = tk.IntVar()
-            main_karage = tk.Checkbutton(
-                    master = label_meats_section,
-                    text="chicken karage",
-                    variable = self.meats,
-                    bg="#eee9e1",
-                    onvalue=1,
-                    font=("Lucinds, 13"),
-                    padx = 40,
-                    pady = 20
-                    )
-            main_karage.grid(row=0, column=0, sticky="w")
             
-            main_karagespicy = tk.Checkbutton(
+            #making selecting options for meats first row
+            column = 0
+            for text in ingredients[3]:
+                self.meatsvar = tk.StringVar()
+                self.meats = tk.Checkbutton(
                     master = label_meats_section,
-                    text="chicken karage (spicy)",
+                    text=text,
                     bg="#eee9e1",
-                    variable = self.meats,
-                    onvalue=2,
+                    variable = self.meatsvar,
+                    onvalue=text,
+                    offvalue= "",
                     font=("Lucinds, 13"),
                     padx = 40,
                     pady = 20
-                    )
-            main_karagespicy.grid(row=0, column=1, sticky="w")
+                )
+                self.meats.grid(row=0, column=column, sticky="w")
+                column += 1
+            self.meatsvar.set(0)
 
-            main_katsu = tk.Checkbutton(
+            #making selecting options for meats second row
+            column = 0
+            for text in ingredients[2]:
+                self.meatsvar = tk.StringVar()
+                self.meats = tk.Checkbutton(
                     master = label_meats_section,
-                    text="chicken katsu",
+                    text=text,
                     bg="#eee9e1",
-                    variable = self.meats,
-                    onvalue=3,
+                    variable = self.meatsvar,
+                    onvalue=text,
+                    offvalue= "",
                     font=("Lucinds, 13"),
                     padx = 40,
                     pady = 20
-                    )
-            main_katsu.grid(row=0, column=2, sticky="w")
-
-            main_tempura = tk.Checkbutton(
-                    master = label_meats_section,
-                    text="tempura",
-                    bg="#eee9e1",
-                    variable = self.meats,
-                    onvalue=4,
-                    font=("Lucinds, 13"),
-                    padx = 40,
-                    pady = 20
-                    )
-            main_tempura.grid(row=1, column=0, sticky="w")
-
-            main_salmon = tk.Checkbutton(
-                    master = label_meats_section,
-                    text="salmon",
-                    bg="#eee9e1",
-                    variable = self.meats,
-                    onvalue=5,
-                    font=("Lucinds, 13"),
-                    padx = 40,
-                    pady = 20
-                    )
-            main_salmon.grid(row=1, column=1, sticky="w")
-
-            main_teriyakichk = tk.Checkbutton(
-                    master = label_meats_section,
-                    text="teriyaki chicken",
-                    bg="#eee9e1",
-                    variable = self.meats,
-                    onvalue=6,
-                    font=("Lucinds, 13"),
-                    padx = 40,
-                    pady = 20
-                    )
-            main_teriyakichk.grid(row=1, column=2, sticky="w")
-
+                )
+                self.meats.grid(row=1, column=column, sticky="w")
+                column += 1
+            self.meatsvar.set(0)
+            
             #next button
             next_button_step3 = tk.Button(
                     master=frame_meats_section,
@@ -265,54 +229,25 @@ class Layout:
             label_vege_section.grid(row=0, column=0, columnspan=4)
             frame_vege_section.grid(row=5, column=0, columnspan=4, sticky="we")
 
-            self.vege = tk.IntVar()
-            main_stirfry = tk.Checkbutton(
+            #making selecting optios for vegetables 
+            column = 0
+            for text in ingredients[1]:
+                self.vegesvar = tk.StringVar()
+                self.veges = tk.Checkbutton(
                     master = label_vege_section,
-                    text="stir fry vegetables",
+                    text=text,
                     bg="#eee9e1",
-                    variable = self.vege,
-                    onvalue=1,
+                    variable = self.vegesvar,
+                    onvalue=text,
+                    offvalue= "",
                     font=("Lucinds, 13"),
-                    padx = 25,
+                    padx = 40,
                     pady = 20
-                    )
-            main_stirfry.grid(row=0, column=0, sticky="w")
-            
-            main_salad = tk.Radiobutton(
-                    master = label_vege_section,
-                    text="salad (spinach, carates, lettuce)",
-                    bg="#eee9e1",
-                    variable = self.vege,
-                    onvalue=2,
-                    font=("Lucinds, 13"),
-                    padx = 25,
-                    pady = 20
-                    )
-            main_salad.grid(row=0, column=1, sticky="w")
-
-            main_edamame = tk.Checkbutton(
-                    master = label_vege_section,
-                    text="edamame beans",
-                    bg="#eee9e1",
-                    variable = self.vege,
-                    onvalue=3,
-                    font=("Lucinds, 13"),
-                    padx = 25,
-                    pady = 20
-                    )
-            main_edamame.grid(row=0, column=3, sticky="w")
-
-            main_beetroot = tk.Checkbutton(
-                    master = label_vege_section,
-                    text="beetroot",
-                    bg="#eee9e1",
-                    variable = self.vege,
-                    onvalue=4,
-                    font=("Lucinds, 13"),
-                    padx = 25,
-                    pady = 20,
-                    )
-            main_beetroot.grid(row=1, column=0, sticky="w")
+                )
+                self.veges.grid(row=1, column=column, sticky="w")
+                column += 1
+            self.vegesvar.set(0)
+    
 
             #next button
             next_button_step2 = tk.Button(
@@ -338,45 +273,24 @@ class Layout:
                 bg="#eee9e1"
             )
             label_mains_section.grid(row=0, column=0, columnspan=4)
-
-            #creating function for when radiobutton gets selected
                
-            self.main = tk.IntVar()
-            main_rice = tk.Radiobutton(
+            self.mainsvar = tk.StringVar()
+            #making selecting options for sauces
+            column = 0
+            for text in ingredients[0]:
+                self.main = tk.Radiobutton(
                     master = label_mains_section,
-                    text="rice",
+                    text=text,
                     bg="#eee9e1",
-                    variable = self.main,
-                    value=1,
+                    variable = self.mainsvar,
+                    value=text,
                     font=("Lucinds, 13"),
                     padx = 80,
                     pady = 20
-                    )
-            main_rice.grid(row=0, column=0, sticky="w")
-            
-            main_noodles = tk.Radiobutton(
-                    master = label_mains_section,
-                    text="noodles",
-                    bg="#eee9e1",
-                    variable = self.main,
-                    value=2,
-                    font=("Lucinds, 13"),
-                    padx = 80,
-                    pady = 20
-                    )
-            main_noodles.grid(row=0, column=1, sticky="w")
-
-            main_brownrice = tk.Radiobutton(
-                    master = label_mains_section,
-                    text="brown rice",
-                    bg="#eee9e1",
-                    variable = self.main,
-                    value=3,
-                    font=("Lucinds, 13"),
-                    padx = 80,
-                    pady = 20
-                    )
-            main_brownrice.grid(row=0, column=3, sticky="w")
+                )
+                self.main.grid(row=0, column=column, sticky="w")
+                column += 1
+            self.mainsvar.set(0)
             
             #next button
             next_button_step1 = tk.Button(
@@ -504,6 +418,7 @@ class Layout:
             text="order",
             font=("Lucinds, 15"),
             anchor="e"
+            command=show_order
             )
         order_button.grid(row=12, column=1, sticky="e", pady=10, padx=90)
 
@@ -511,4 +426,5 @@ class Layout:
 
         root.mainloop()
 
-Layout()
+#passing the lists through the layout class so that it can be accessed for the selecting options
+Layout(BentoBowl().return_lists())
