@@ -1,7 +1,7 @@
 """
-ITERATION 1
+ITERATION 2
 author: Ashlee Shum
-description: aesthetics of program - colours, font, button shapes
+description: improvements based on user feedback
 """
 
 
@@ -101,11 +101,12 @@ class Layout:
             step_4()
 
         #making order show up on screen
-        def show_order(name, phoneno):
+        def show_order(name, phoneno, popup, sauce_retr, meats_retr, veges_retr, main_retr):
             user_name=name.get("1.0","end-1c")
             user_phone=phoneno.get("1.0","end-1c")
             order_details = ""
 
+            #checking if valid name and phone number has been entered
             if user_phone.isnumeric() and user_name != "":
                 popup.destroy()
                 printed_order=Toplevel(root, bg="#FDFDFB")
@@ -119,7 +120,6 @@ class Layout:
                         all_veges += vege.get()
                         if idx < len(veges_retr) - 1:
                             all_veges += ", "
-            
 
                 all_meats = ""
                 for idx, meat in enumerate(meats_retr):
@@ -162,7 +162,7 @@ class Layout:
                     )
                 users_order.grid(row=1, column=0, sticky="w")
                     
-                    
+            #checking if phone number has been entered but no name
             elif user_phone.isnumeric() and user_name == "":
                 error_popup= Toplevel(popup)
                 error_popup.geometry("200x100")
@@ -176,6 +176,7 @@ class Layout:
                 )
                 error_label.grid(row=0, column=0, sticky="news")
 
+            #checking if no phone number but name has been entered
             else:
                 error_popup= Toplevel(popup)
                 error_popup.geometry("200x100")
@@ -189,6 +190,7 @@ class Layout:
                 )
                 error_label.grid(row=0, column=0, sticky="news")
 
+        #method for if no options have been selected in the ordering section
         def not_entered_error():
             order_error_popup=Toplevel(root)
             order_error_popup.geometry("200x100")
@@ -203,11 +205,11 @@ class Layout:
                 )
             order_error_label.grid(row=0, column=0, sticky="news")
         
-        #making popup for completed order
         #only need to pass throguh self as variables are in the same class thus don't need to pass every single thing
         def popup(frm_sauces, sauce_retr, meats_retr, veges_retr, main_retr):
             frm_sauces.grid_remove()
 
+            #getting vege and meat options selected into a list bc they are checkbuttons
             is_vege_selected = ""
             for vege in veges_retr:
                 is_vege_selected += vege.get()
@@ -215,8 +217,6 @@ class Layout:
             is_meat_selected = ""
             for meat in meats_retr:
                 is_meat_selected += meat.get()
-
-            
 
             #checking if user has entered anything in the sections
             if main_retr == "0":
@@ -230,7 +230,7 @@ class Layout:
             else:
                 #make popup where user enters name and phone number then print order
                 popup= Toplevel(root)
-                popup.geometry("500x300")
+                popup.geometry("400x200")
                 popup.title("Finalising order:")
                 popup.resizable(False, False)
             
@@ -241,7 +241,7 @@ class Layout:
                 popup_instructions = tk.Label(
                     master=frame_instruct,
                     text = "Please enter your details below:",
-                    font=("Lucinds, 20"),
+                    font=("Lucinds, 15"),
                     padx=10,
                     pady=10)
                 popup_instructions.grid(row = 0, column=0, sticky="w")
@@ -292,7 +292,7 @@ class Layout:
                     master=popup,
                     text="order",
                     font=("Lucinds, 13"),
-                    command=lambda: show_order(enter_name, enter_phoneno)
+                    command=lambda: show_order(enter_name, enter_phoneno, popup, sauce_retr, meats_retr, veges_retr, main_retr)
                     )
                 order_btn.grid(row=3, column=1, sticky="e")
 
