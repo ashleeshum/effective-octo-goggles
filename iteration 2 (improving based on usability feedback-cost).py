@@ -101,7 +101,7 @@ class Layout:
             step_4()
 
         #making order show up on screen
-        def show_order(name, phoneno, popup, sauce_retr, meats_retr, veges_retr, main_retr):
+        def show_order(self, name, phoneno, popup, sauce_retr, meats_retr, veges_retr, main_retr):
             user_name=name.get("1.0","end-1c")
             user_phone=phoneno.get("1.0","end-1c")
             order_details = ""
@@ -114,6 +114,7 @@ class Layout:
                 printed_order.title("Your order:")
                 printed_order.resizable(False, False)
 
+                #removing comma after the last option in vege and meats
                 all_veges = ""
                 for idx, vege in enumerate(veges_retr):
                     if vege.get() != "":  
@@ -124,18 +125,20 @@ class Layout:
                 all_meats = ""
                 for idx, meat in enumerate(meats_retr):
                     if meat.get() != "":
-                        all_meats += meat.get()
-                        if idx < len(meats_retr) - 1:
-                            all_meats += ", "
-                        if idx == 3:
+                        all_meats += (meat.get() + ", ")
+                        if idx == 2:
                             all_meats += "\n"
+                #removing comma and space
+                all_meats = all_meats[:-2]
                         
 
                 order_details = "Mains choice: " + main_retr + "\n"
                 order_details = order_details + "Vegetables choice: " + all_veges + "\n"
                 order_details = order_details + "Meats choice: " + all_meats + "\n"
                 order_details = order_details + "Sauce choice: " +sauce_retr + "\n"
-                order_details = order_details + "Order for " +user_name + "\n\n"
+                order_details = order_details + "Order for " +user_name + "\n"
+                order_details = order_details + "Phone number: " +user_phone +"\n"
+                order_details = order_details + "Cost: $" +str(self.value) +"\n\n"
                 order_details = order_details + "We will text you when your order is ready for pick up!\nHave a good day :)"
                 
                 users_order_label=tk.Label(
@@ -206,7 +209,7 @@ class Layout:
             order_error_label.grid(row=0, column=0, sticky="news")
         
         #only need to pass throguh self as variables are in the same class thus don't need to pass every single thing
-        def popup(frm_sauces, sauce_retr, meats_retr, veges_retr, main_retr):
+        def popup(self, frm_sauces, sauce_retr, meats_retr, veges_retr, main_retr):
             frm_sauces.grid_remove()
 
             #getting vege and meat options selected into a list bc they are checkbuttons
@@ -292,9 +295,18 @@ class Layout:
                     master=popup,
                     text="order",
                     font=("Lucinds, 13"),
-                    command=lambda: show_order(enter_name, enter_phoneno, popup, sauce_retr, meats_retr, veges_retr, main_retr)
+                    command=lambda: show_order(self, enter_name, enter_phoneno, popup, sauce_retr, meats_retr, veges_retr, main_retr)
                     )
                 order_btn.grid(row=3, column=1, sticky="e")
+
+                #calculating price of bento bowl based on options user selected
+                self.value=14
+                for vege in veges_retr:
+                    if vege.get() != "":
+                        self.value += 2 
+                for meat in meats_retr:
+                    if meat.get() != "":
+                        self.value += 2
 
         
         #next button from step 3 wll open up step 4 collapsible section
@@ -342,7 +354,7 @@ class Layout:
             )
             self.sauce.grid(row=1, column=0, sticky="w")
                 
-            #
+            #finish button to go onto the name and phone number popup 
             finish_button = tk.Button(
                 master=frame_sauces_section,
                 text= "finish",
@@ -350,7 +362,7 @@ class Layout:
                 width=10,
                 height=1,
                 font=("Lucinds, 10"),
-                command = lambda : popup(frame_sauces_section, self.saucesvar.get(), self.meatsvar, self.vegesvar, self.mainsvar.get())
+                command = lambda : popup(self, frame_sauces_section, self.saucesvar.get(), self.meatsvar, self.vegesvar, self.mainsvar.get())
             )
             finish_button.grid(row=9, column=0, columnspan=4, sticky="se", pady=10, padx=10)
 
