@@ -54,7 +54,7 @@ class Submit:
             for idx, meat in enumerate(meats_retr):
                 if meat.get() != "":
                     all_meats += (meat.get() + ", ")
-                    if idx == 2:
+                    if idx == 3:
                         all_meats += "\n"
             #removing comma and space
             all_meats = all_meats[:-2]
