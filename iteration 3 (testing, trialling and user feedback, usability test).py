@@ -68,6 +68,7 @@ class Submit:
                 if meat.get() != "":
                     self.value += 2                
 
+            #printing order on popup
             order_details = "Mains choice: " + main_retr + "\n"
             order_details = order_details + "Vegetables choice: " + all_veges + "\n"
             order_details = order_details + "Meats choice: " + all_meats + "\n"
@@ -115,8 +116,7 @@ class Submit:
             )
             error_label.grid(row=0, column=0, sticky="news")
 
-        #checking if no phone number but name has been entered
-        else:
+        elif user_phone == "" and user_name != "":
             error_popup= Toplevel(popup)
             error_popup.geometry("200x100")
             error_popup.title("error:")
@@ -124,6 +124,32 @@ class Submit:
             error_label = tk.Label(
                 master=error_popup,
                 text="please enter a \n phone number", 
+                font = ("Lucinds, 10"),
+                anchor="center"
+            )
+            error_label.grid(row=0, column=0, sticky="news")
+
+        elif not user_phone.isnumeric() and user_name != "":
+            error_popup= Toplevel(popup)
+            error_popup.geometry("200x100")
+            error_popup.title("error:")
+            error_popup.resizable(False, False)
+            error_label = tk.Label(
+                master=error_popup,
+                text="please enter a \n valid phone number", 
+                font = ("Lucinds, 10"),
+                anchor="center"
+            )
+            error_label.grid(row=0, column=0, sticky="news")
+            
+        else:
+            error_popup= Toplevel(popup)
+            error_popup.geometry("200x100")
+            error_popup.title("error:")
+            error_popup.resizable(False, False)
+            error_label = tk.Label(
+                master=error_popup,
+                text="please enter a \n phone number and name", 
                 font = ("Lucinds, 10"),
                 anchor="center"
             )
@@ -330,6 +356,7 @@ class Commands:
         
         #making selecting options for meats first row
         column = 0
+        self.meatsvar=[]
         for text in self.ingredients[3]:
             check_button_choice = tk.StringVar()
             self.meatsvar.append(check_button_choice)
@@ -395,6 +422,7 @@ class Commands:
 
         #making selecting optios for vegetables 
         column = 0
+        self.vegesvar=[]
         for text in self.ingredients[1]:
             check_button_choice = tk.StringVar()
             self.vegesvar.append(check_button_choice)
