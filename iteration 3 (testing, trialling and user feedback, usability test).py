@@ -22,7 +22,6 @@ class BentoBowl:
         return [self.mainslist, self.vegeslist, self.meatslist, self.meatslist2, self.sauceslist]
     
 
-
 class Layout:
                
     def __init__(self, ingredients):
@@ -110,11 +109,11 @@ class Layout:
                 all_meats = ""
                 for idx, meat in enumerate(meats_retr):
                     if meat.get() != "":
-                        all_meats += meat.get()
-                        if idx < len(meats_retr) - 1:
-                            all_meats += ", "
-                        if idx == 3:
+                        all_meats += (meat.get() + ", ")
+                        if idx == 2:
                             all_meats += "\n"
+                #removing comma and space
+                all_meats = all_meats[:-2]
                         
 
                 order_details = "Mains choice: " + main_retr + "\n"
@@ -122,6 +121,8 @@ class Layout:
                 order_details = order_details + "Meats choice: " + all_meats + "\n"
                 order_details = order_details + "Sauce choice: " +sauce_retr + "\n"
                 order_details = order_details + "Order for " +user_name + "\n\n"
+                order_details = order_details + "Phone number: " +user_phone +"\n"
+                order_details = order_details + "Cost: $" +str(self.value) +"\n\n"
                 order_details = order_details + "We will text you when your order is ready for pick up!\nHave a good day :)"
                 
                 users_order_label=tk.Label(
@@ -282,7 +283,15 @@ class Layout:
                     )
                 order_btn.grid(row=3, column=1, sticky="e")
 
-        
+        #calculating price of bento bowl based on options user selected
+                self.value=14
+                for vege in veges_retr:
+                    if vege.get() != "":
+                        self.value += 2 
+                for meat in meats_retr:
+                    if meat.get() != "":
+                        self.value += 2
+
         #next button from step 3 wll open up step 4 collapsible section
         def step_4(self):
             self.frame_meats_section.destroy()
