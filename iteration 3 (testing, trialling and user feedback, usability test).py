@@ -48,8 +48,75 @@ class Submit:
         user_phone = phoneno.get("1.0", "end-1c")
         order_details = ""
 
+
+        # checking if phone number has been entered but no name
+        if user_phone.isnumeric() and user_name == "":
+            error_popup = Toplevel(popup)
+            error_popup.geometry("200x100")
+            error_popup.title("error:")
+            error_popup.resizable(False, False)
+            error_label = tk.Label(
+                master=error_popup,
+                text="please enter a \n name",
+                font=("Lucinds, 10"),
+                anchor="center"
+            )
+            error_label.grid(row=0, column=0, sticky="news")
+
+        elif user_phone == "" and user_name != "":
+            error_popup = Toplevel(popup)
+            error_popup.geometry("200x100")
+            error_popup.title("error:")
+            error_popup.resizable(False, False)
+            error_label = tk.Label(
+                master=error_popup,
+                text="please enter a \n phone number",
+                font=("Lucinds, 10"),
+                anchor="center"
+            )
+            error_label.grid(row=0, column=0, sticky="news")
+
+        elif not user_phone.isnumeric() and user_name != "":
+            error_popup = Toplevel(popup)
+            error_popup.geometry("200x100")
+            error_popup.title("error:")
+            error_popup.resizable(False, False)
+            error_label = tk.Label(
+                master=error_popup,
+                text="please enter a \n valid phone number",
+                font=("Lucinds, 10"),
+                anchor="center"
+            )
+            error_label.grid(row=0, column=0, sticky="news")
+
+        elif len(user_phone) != 9:
+            error_popup = Toplevel(popup)
+            error_popup.geometry("200x100")
+            error_popup.title("error:")
+            error_popup.resizable(False, False)
+            error_label = tk.Label(
+                master=error_popup,
+                text="please enter a \n phone number with 9 digits",
+                font=("Lucinds, 10"),
+                anchor="center"
+            )
+            error_label.grid(row=0, column=0, sticky="news")
+
+        elif user_phone == "" and user_name == "":
+            error_popup = Toplevel(popup)
+            error_popup.geometry("200x100")
+            error_popup.title("error:")
+            error_popup.resizable(False, False)
+            error_label = tk.Label(
+                master=error_popup,
+                text="please enter a \n phone number and name",
+                font=("Lucinds, 10"),
+                anchor="center"
+            )
+            error_label.grid(row=0, column=0, sticky="news")
+
         # checking if valid name and phone number has been entered
-        if user_phone.isnumeric() and user_name != "":
+        else:
             popup.destroy()
             printed_order = Toplevel(self.root, bg="#FDFDFB")
             printed_order.geometry("500x300")
@@ -117,58 +184,6 @@ class Submit:
                 )
             users_order.grid(row=1, column=0, sticky="w")
 
-        # checking if phone number has been entered but no name
-        elif user_phone.isnumeric() and user_name == "":
-            error_popup = Toplevel(popup)
-            error_popup.geometry("200x100")
-            error_popup.title("error:")
-            error_popup.resizable(False, False)
-            error_label = tk.Label(
-                master=error_popup,
-                text="please enter a \n name",
-                font=("Lucinds, 10"),
-                anchor="center"
-            )
-            error_label.grid(row=0, column=0, sticky="news")
-
-        elif user_phone == "" and user_name != "":
-            error_popup = Toplevel(popup)
-            error_popup.geometry("200x100")
-            error_popup.title("error:")
-            error_popup.resizable(False, False)
-            error_label = tk.Label(
-                master=error_popup,
-                text="please enter a \n phone number",
-                font=("Lucinds, 10"),
-                anchor="center"
-            )
-            error_label.grid(row=0, column=0, sticky="news")
-
-        elif not user_phone.isnumeric() and user_name != "":
-            error_popup = Toplevel(popup)
-            error_popup.geometry("200x100")
-            error_popup.title("error:")
-            error_popup.resizable(False, False)
-            error_label = tk.Label(
-                master=error_popup,
-                text="please enter a \n valid phone number",
-                font=("Lucinds, 10"),
-                anchor="center"
-            )
-            error_label.grid(row=0, column=0, sticky="news")
-
-        else:
-            error_popup = Toplevel(popup)
-            error_popup.geometry("200x100")
-            error_popup.title("error:")
-            error_popup.resizable(False, False)
-            error_label = tk.Label(
-                master=error_popup,
-                text="please enter a \n phone number and name",
-                font=("Lucinds, 10"),
-                anchor="center"
-            )
-            error_label.grid(row=0, column=0, sticky="news")
 
     # method for if no options have been selected in the ordering section
     def not_entered_error(self):
@@ -327,7 +342,7 @@ class Commands:
                 master=label_sauces_section,
                 text=text,
                 bg="#FDFDFB",
-                variable self.saucesvar,
+                variable=self.saucesvar,
                 value=text,
                 font=("Lucinds, 13"),
                 padx=40,
